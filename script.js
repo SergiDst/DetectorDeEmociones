@@ -12,13 +12,11 @@ $(document).ready(function () {
         if (file) {
             reader.readAsDataURL(file);
             $("#btnEliminar").prop("disabled", false)
-        } else {
-            $("#imagen").attr("src", "");
-        }
-
-        if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/jpg') {
+            $("#btnEnviar").prop("disabled", false)
+        } else if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/jpg') {
             $('#modalError').modal('show')
             $("#file").val("")
+            $("#imagen").attr("src", "");
             return
         }
     });
@@ -27,6 +25,22 @@ $(document).ready(function () {
         $("#imagen").attr("src", "")
         $("#file").val("")
         $("#btnEliminar").prop("disabled", true)
+    })
+
+    $("#btnEnviar").on("click", function () {
+        var imagenUrl = $("#imagen").attr("src");
+            $.ajax({
+            url: "miapi",
+            type: "POST",
+            data: imagenUrl,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $("#resultado").attr("src", "")
+                $("#btnEnviar").prop("disabled", true)
+            }
+        })
+
     })
 
 })
