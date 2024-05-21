@@ -15,25 +15,36 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="fondo">
+    <nav class="navbar bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" >Detector de emociones</a>
+          <button class="btn btn-success" type="submit">INFO</button>
+        </div>
+    </nav>
     <div class="container">
-        <form>
-            <div class="mb-3">
-                <div><label for="exampleInputEmail1" class="form-label">Selecciona o arrastra tu imagen aqui</label></div>
-                <figure class="figure">
-                    <img src="..." class="figure-img img-fluid rounded" alt="...">
-                </figure>
-                <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept=".png, .jpg, .jpeg">
-            </div>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col order-1">
-                        <button type="submit" class="btn btn-primary g-col-6">Enviar</button>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <div><label for="exampleInputEmail1" class="form-label">Selecciona o arrastra tu imagen aqui</label></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <figure class="figure imagen">
+                                <img src="..." class="figure-img img-fluid rounded" id="imagen" alt="...">
+                            </figure>
+                            <input type="file" class="form-control" id="file" aria-describedby="emailHelp" accept=".png, .jpg, .jpeg">
+                        </div>
                     </div>
+                    
+                </div>
+                <div class="col-sm-3">
+                </div>
+                <div class="col col-lg-2">
+                    <button type="submit" class="btn btn-primary g-col-6" disabled>Enviar</button>
+                    <button type="submit" id="btnEliminar" class="btn btn-primary g-col-6" disabled>Eliminar</button>
                 </div>
             </div>
-
-        </form>
+        </div>
     </div>
     <!-- modal de error -->
     <div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
