@@ -35,9 +35,10 @@ $(document).ready(function () {
             data: imagenUrl,
             processData: false,
             contentType: false,
-            success: function (data) {
-                $("#resultado").attr("src", "")
-                $("#btnEnviar").prop("disabled", true)
+            success: function (response) {
+                console.log(response)
+                /* $("#resultado").attr("src", "")
+                $("#btnEnviar").prop("disabled", true) */
             }
         })
 
