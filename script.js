@@ -40,11 +40,16 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (response) {
+                if (response == 0) {
+                    $("#resultado").attr("src", "./assets/images/enojado.png")
+                    $("#txtResultado").html("<p>Estas enojado</p>")
+                }else{
+                    $("#resultado").attr("src", "./assets/images/feliz.png")
+                    $("#txtResultado").html("<p>Estas feliz</p>")
+                }
                 console.log(response)
             }
         })
-        $("#resultado").attr("src", "./assets/images/feliz.png")
-        $("#txtResultado").html("<p>Estas feliz</p>")
         $("#btnEnviar").prop("disabled", true)
     })
 
