@@ -1,10 +1,24 @@
 .fondo{
-    background-color: darkgray;
+    background-color: darkslategray
 }
 
 .imagen{
     width: 470px;
     height: 470px;
+}
+
+.gifFeliz{
+    background-color: cornflowerblue;
+    background-image: url(./assets/images/Sol.gif);
+    background-position: bottom;
+    position: relative;
+}
+
+.gifTriste{
+    background-color: darkgray;
+    background-image: url(./assets/images/lluvia.gif);
+    background-position: bottom;
+    position: relative;
 }
 
 .respuesta{

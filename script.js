@@ -1,32 +1,31 @@
 $(document).ready(function () {
     //Muestra la imagen seleccionada
-    $('#file').on('change', function () {
+    $('#file').on('change', function (e) {
+        e.preventDefault()
+        e.stopPropagation()
         var file = this.files[0];
-        var type = file.type;
-        var reader = new FileReader();
+        cargarImagen(file)
+    });
 
-        reader.onloadend = function () {
-            $("#imagen").attr("src", reader.result);
-        }
+    $('#imagen').on('dragover', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
 
-        if (file) {
-            reader.readAsDataURL(file);
-            $("#btnEliminar").prop("disabled", false)
-            $("#btnEnviar").prop("disabled", false)
-        } else if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/jpg') {
-            $('#modalError').modal('show')
-            $("#file").val("")
-            $("#imagen").attr("src", "")
-            return
-        }
+    $('#imagen').on('drop', function (e) {
+        e.preventDefault()
+        e.stopPropagation()
     });
 
     $("#btnEliminar").on("click", function () {
-        $("#imagen").attr("src", "")
+        $("#imagen").attr("src", "./assets/images/default.png")
         $("#file").val("")
         $("#resultado").attr("src", "./assets/images/neutral.png")
         $("#txtResultado").html("<p>Neutral</p>")
         $("#btnEliminar").prop("disabled", true)
+        $("#btnEnviar").prop("disabled", true)
+        $(".fondo").removeClass("gifFeliz")
+        $(".fondo").removeClass("gifTriste")
     })
 
     $("#btnEnviar").on("click", function () {
@@ -37,15 +36,17 @@ $(document).ready(function () {
             url: "http://127.0.0.1:8082/resultado",
             type: "POST",
             data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if (response == 0) {
-                    $("#resultado").attr("src", "./assets/images/enojado.png")
-                    $("#txtResultado").html("<p>Estas enojado</p>")
-                }else{
                     $("#resultado").attr("src", "./assets/images/feliz.png")
                     $("#txtResultado").html("<p>Estas feliz</p>")
+                    $(".fondo").addClass("gifFeliz")
+                } else {
+                    $("#resultado").attr("src", "./assets/images/triste.png")
+                    $("#txtResultado").html("<p>Estas triste</p>")
+                    $(".fondo").addClass("gifTriste")
                 }
                 console.log(response)
             }
@@ -55,4 +56,22 @@ $(document).ready(function () {
 
 })
 
+function cargarImagen(file) {
+    var type = file.type;
+    var reader = new FileReader();
 
+    reader.onloadend = function () {
+        $("#imagen").attr("src", reader.result);
+    }
+
+    if (type !== 'image/png' && type !== 'image/jpeg' && type !== 'image/jpg') {
+        $('#modalError').modal('show')
+        $("#file").val("")
+        $("#imagen").attr("src", "./assets/images/default.png");
+        return
+    } else {
+        reader.readAsDataURL(file);
+        $("#btnEliminar").prop("disabled", false)
+        $("#btnEnviar").prop("disabled", false)
+    }
+}
