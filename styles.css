@@ -14,6 +14,13 @@
     position: relative;
 }
 
+.gifError{
+    background-color: black;
+    background-image: url(./assets/images/glitch.gif);
+    background-position: bottom;
+    position: relative;
+}
+
 .gifTriste{
     background-color: darkgray;
     background-image: url(./assets/images/lluvia.gif);

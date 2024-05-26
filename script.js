@@ -1,5 +1,12 @@
 $(document).ready(function () {
-    //Muestra la imagen seleccionada
+    var foto
+    $("#btnInfo").click(function(){
+        $(".info").popover('show');
+        setTimeout(function(){
+            $(".info").popover('hide');
+        }, 5000);
+    });
+
     $('#file').on('change', function (e) {
         e.preventDefault()
         e.stopPropagation()
@@ -15,6 +22,8 @@ $(document).ready(function () {
     $('#imagen').on('drop', function (e) {
         e.preventDefault()
         e.stopPropagation()
+        cargarImagen(e.originalEvent.dataTransfer.files[0])
+        foto = e.originalEvent.dataTransfer.files[0]
     });
 
     $("#btnEliminar").on("click", function () {
@@ -26,31 +35,19 @@ $(document).ready(function () {
         $("#btnEnviar").prop("disabled", true)
         $(".fondo").removeClass("gifFeliz")
         $(".fondo").removeClass("gifTriste")
+        $(".fondo").removeClass("gifError")
     })
 
     $("#btnEnviar").on("click", function () {
         var file = $("#file")[0].files[0]
-        const formData = new FormData();
-        formData.append("filetest", file);
-        $.ajax({
-            url: "http://127.0.0.1:8082/resultado",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                if (response == 0) {
-                    $("#resultado").attr("src", "./assets/images/feliz.png")
-                    $("#txtResultado").html("<p>Estas feliz</p>")
-                    $(".fondo").addClass("gifFeliz")
-                } else {
-                    $("#resultado").attr("src", "./assets/images/triste.png")
-                    $("#txtResultado").html("<p>Estas triste</p>")
-                    $(".fondo").addClass("gifTriste")
-                }
-                console.log(response)
-            }
-        })
+        const formData = new FormData()
+        if (file === undefined) {
+            formData.append("filetest", foto)
+            cargarFile(formData)
+        } else {
+            formData.append("filetest", file)
+            cargarFile(formData)
+        }
         $("#btnEnviar").prop("disabled", true)
     })
 
@@ -74,4 +71,35 @@ function cargarImagen(file) {
         $("#btnEliminar").prop("disabled", false)
         $("#btnEnviar").prop("disabled", false)
     }
+}
+
+function cargarFile(formData) {
+    $.ajax({
+        url: "http://127.0.0.1:8082/archivo",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            Resultado(response)
+        }
+    })
+}
+
+
+function Resultado(response) {
+    if (response == 0) {
+        $("#resultado").attr("src", "./assets/images/feliz.png")
+        $("#txtResultado").html("<p>Estas feliz</p>")
+        $(".fondo").addClass("gifFeliz")
+    } else if (response == 1) {
+        $("#resultado").attr("src", "./assets/images/triste.png")
+        $("#txtResultado").html("<p>Estas triste</p>")
+        $(".fondo").addClass("gifTriste")
+    } else {
+        $("#resultado").attr("src", "./assets/images/Error.png")
+        $("#txtResultado").html("<p>No se pudo detectar la emoción</p>")
+        $(".fondo").addClass("gifError")
+    }
+    console.log(response)
 }

@@ -34,14 +34,21 @@ app.add_middleware(
 class SimpleModel:
     filetest: UploadFile = Form(...)
 
-@app.post("/resultado")
+@app.post("/archivo")
 async def categorizar(form_data: SimpleModel = Depends()):
   archivo = form_data.filetest.file
   img = Image.open(archivo).convert("RGB")
   img = np.array(img).astype(float)/255
   img = cv2.resize(img, (224,224))
   prediccion = model.predict(img.reshape(-1, 224, 224, 3))
-  print(prediccion)
-  finalPrediccion = np.argmax(prediccion[0])
+  prediccion_imagen = prediccion[0]
+  suma = sum(prediccion_imagen)
+  print(prediccion[0])
+  if suma >= 1:
+    finalPrediccion = np.argmax(prediccion[0])
+    print(suma)
+  else:
+    print(suma)
+    finalPrediccion = 3
   return int(finalPrediccion)
  
