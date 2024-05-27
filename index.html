@@ -29,7 +29,7 @@
                                     <img src="./assets/images/default.png" class="figure-img img-fluid rounded"
                                         id="imagen" alt="Selecciona o arrastra tu imagen aqui">
                                 </div>
-                                <input data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Top popover" type="file" class="form-control info" id="file" name="file"
+                                <input data-bs-container="body" data-bs-placement="bottom" data-bs-content="Presiona aqui y selecciona un archivo" type="file" class="form-control info" id="file" name="file"
                                         aria-describedby="emailHelp" accept=".png, .jpg, .jpeg">
                             </figure>
                         </div>
@@ -47,13 +47,14 @@
                     <div><br><br><br></div>
                     <div class="container text-center">
                         <div class="row justify-content-md-center">
-                            <div class="col col-lg-5">
-                                <button type="submit" class="btn btn-primary g-col-6" id="btnEnviar"
-                                    disabled>Enviar</button>
+                            <div class="col col-lg-4">
+                                <button type="submit" data-bs-container="body" data-bs-placement="left" data-bs-content="Si quieres saber el sentimiento presiona este boton" class="btn btn-primary g-col-6" id="btnEnviar"disabled>Enviar</button>
+                            </div>
+                            <div class="col col-lg-3">
+                                <button type="submit" data-bs-container="body" data-bs-placement="bottom" data-bs-content="Tambien puedes tomarte una foto con este boton" class="btn btn-primary g-col-6" id="btnFoto">Foto</button>
                             </div>
                             <div class="col col-lg-4">
-                                <button id="btnEliminar" class="btn btn-danger g-col-6"
-                                    disabled>Eliminar</button>
+                                <button id="btnEliminar" data-bs-container="body" data-bs-placement="right" data-bs-content="o si te equivocaste al elegir, puedes quitar la imagen" class="btn btn-danger g-col-6" disabled>Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -74,6 +75,37 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal de informacion -->
+    <div class="modal fade" id="modalInfo" data-bs-backdrop="static" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="miModalLabel">INFO: Como funciona?</h5>
+                    <button type="button" class="btn-close" id="clsInfo" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    Esta aplicación web consume directamente de una API creada especificamente para detectar entre dos emociones humanas (feliz o triste) y si no sabes como continuar, a continuación se te mostra que debes hacer :D
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal de video -->
+    <div class="modal fade " id="modalVideo" data-bs-backdrop="static" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content video-container">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="miModalLabel">VIDEO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <video class="video-stream" autoplay src=""></video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="snap" data-bs-dismiss="modal">Tomar foto</button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,30 @@
 $(document).ready(function () {
     var foto
-    $("#btnInfo").click(function(){
-        $(".info").popover('show');
-        setTimeout(function(){
+
+    //$("#btnEnviar").popover('hide')
+    //$("#btnEliminar").popover('hide')
+
+    $('#btnInfo').on('click', function () {
+        $('#modalInfo').modal('show')
+    })
+
+    $('#btnFoto').on('click', function () {
+        $('#modalVideo').modal('show')
+        video()
+    })
+
+    $('#snap').on('click', function () {
+        snapShot()
+    })
+
+    $('#clsInfo').on('click', function () {
+        $(".info").popover('show')
+        setTimeout(function () {
             $(".info").popover('hide');
-        }, 5000);
-    });
+            $("#btnEnviar").popover('show')
+            $("#btnEliminar").popover('show')
+        }, 4000);
+    })
 
     $('#file').on('change', function (e) {
         e.preventDefault()
@@ -27,6 +46,8 @@ $(document).ready(function () {
     });
 
     $("#btnEliminar").on("click", function () {
+        $("#btnEnviar").popover('hide')
+        $("#btnEliminar").popover('hide')
         $("#imagen").attr("src", "./assets/images/default.png")
         $("#file").val("")
         $("#resultado").attr("src", "./assets/images/neutral.png")
@@ -39,6 +60,8 @@ $(document).ready(function () {
     })
 
     $("#btnEnviar").on("click", function () {
+        $("#btnEnviar").popover('hide')
+        $("#btnEliminar").popover('hide')
         var file = $("#file")[0].files[0]
         const formData = new FormData()
         if (file === undefined) {
@@ -86,6 +109,25 @@ function cargarFile(formData) {
     })
 }
 
+function snapShot() {
+    $.ajax({
+        url: "http://127.0.0.1:8082/foto",
+        type: "POST",
+        success: function (response) {
+            cargarImagen(response)
+            // Aquí puedes manejar la respuesta. Por ejemplo, podrías mostrar la imagen en un elemento de imagen:
+            /* var image = document.createElement('img');
+            image.src = "data:image/jpeg;base64," + btoa(response);
+            $('.img').html(image); */
+        }
+    });
+}
+
+
+function video() {
+    var video = $('.video-stream')[0];
+    video.src = "http://127.0.0.1:8082/video"
+}
 
 function Resultado(response) {
     if (response == 0) {
