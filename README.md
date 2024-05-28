@@ -4,7 +4,7 @@ Este proyecto consiste en una aplicación web desarrollada utilizando HTML, CSS 
 
 ## Funcionalidades
 
-- Envío de imágenes: La aplicación web permite al usuario cargar una imagen desde su dispositivo.
+- Envío de imágenes: La aplicación web permite al usuario cargar o tomar en vivo una imagen desde su dispositivo.
 - Procesamiento de imágenes: Utilizando jQuery y AJAX en JavaScript, la imagen es enviada a la API para su procesamiento.
 - Reconocimiento de emociones: La API utiliza un modelo entrenado para predecir si la emoción en la imagen es triste o feliz.
 - Visualización de resultados: La aplicación web muestra al usuario el resultado de la predicción realizada por la API.

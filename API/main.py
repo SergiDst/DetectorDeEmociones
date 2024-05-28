@@ -4,6 +4,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from PIL import Image
 import cv2
+from flask import Flask, Response
 import numpy as np
 from fastapi.middleware.cors import CORSMiddleware
 from dataclasses import dataclass
@@ -27,21 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-camera = cv2.VideoCapture(0)
-frame = None
-
-def generate_frames():
-    global frame
-    while True:
-        success, frame = camera.read()  # read the camera frame
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
 @dataclass
 class SimpleModel:
     filetest: UploadFile = Form(...)
@@ -63,16 +49,3 @@ async def categorizar(form_data: SimpleModel = Depends()):
     print(suma)
     finalPrediccion = 3
   return int(finalPrediccion)
- 
-@app.get("/video")
-async def video_feed():
-    return StreamingResponse(generate_frames(), media_type="multipart/x-mixed-replace;boundary=frame")
-
-@app.post("/foto")
-async def snapshot():
-    global frame
-    if frame is None:
-        raise HTTPException(status_code=500, detail="No frame available")
-    else:
-        camera.release()
-        return StreamingResponse(frame, media_type="image/jpeg")

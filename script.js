@@ -1,21 +1,24 @@
 $(document).ready(function () {
     var foto
 
-    //$("#btnEnviar").popover('hide')
-    //$("#btnEliminar").popover('hide')
-
     $('#btnInfo').on('click', function () {
         $('#modalInfo').modal('show')
     })
 
     $('#btnFoto').on('click', function () {
-        $('#modalVideo').modal('show')
-        video()
-    })
+        $('#modalVideo').modal('show');
+        empezarVideo()
+    });
 
     $('#snap').on('click', function () {
-        snapShot()
+        pausarVideo()
+        foto = tomarFoto()
+        cargarImagen(foto)
     })
+
+    $('#btnVideo').on('click', function () {
+        pausarVideo()
+    });
 
     $('#clsInfo').on('click', function () {
         $(".info").popover('show')
@@ -46,8 +49,10 @@ $(document).ready(function () {
     });
 
     $("#btnEliminar").on("click", function () {
-        $("#btnEnviar").popover('hide')
-        $("#btnEliminar").popover('hide')
+        setTimeout(function () {
+            $("#btnEnviar").popover('hide')
+            $("#btnEliminar").popover('hide')
+        }, 10);
         $("#imagen").attr("src", "./assets/images/default.png")
         $("#file").val("")
         $("#resultado").attr("src", "./assets/images/neutral.png")
@@ -60,8 +65,10 @@ $(document).ready(function () {
     })
 
     $("#btnEnviar").on("click", function () {
-        $("#btnEnviar").popover('hide')
-        $("#btnEliminar").popover('hide')
+        setTimeout(function () {
+            $("#btnEnviar").popover('hide')
+            $("#btnEliminar").popover('hide')
+        }, 10);
         var file = $("#file")[0].files[0]
         const formData = new FormData()
         if (file === undefined) {
@@ -109,24 +116,42 @@ function cargarFile(formData) {
     })
 }
 
-function snapShot() {
-    $.ajax({
-        url: "http://127.0.0.1:8082/foto",
-        type: "POST",
-        success: function (response) {
-            cargarImagen(response)
-            // Aquí puedes manejar la respuesta. Por ejemplo, podrías mostrar la imagen en un elemento de imagen:
-            /* var image = document.createElement('img');
-            image.src = "data:image/jpeg;base64," + btoa(response);
-            $('.img').html(image); */
-        }
-    });
+function tomarFoto() {
+    var canvas = $("<canvas>")[0];
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    var context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    var dataURL = canvas.toDataURL('image/jpeg');
+    var blobBin = atob(dataURL.split(',')[1]);
+    var array = [];
+    for (var i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+    }
+    var blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+
+    var file = new File([blob], "snapshot.jpg", { type: 'image/jpeg' });
+    return file
 }
 
+function empezarVideo() {
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err0r) {
+                console.log("Algo salió mal!");
+            });
+    }
+}
 
-function video() {
-    var video = $('.video-stream')[0];
-    video.src = "http://127.0.0.1:8082/video"
+function pausarVideo() {
+    video.pause();
+    if (video.srcObject) {
+        video.srcObject.getTracks()[0].stop();
+    }
 }
 
 function Resultado(response) {

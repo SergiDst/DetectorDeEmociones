@@ -96,13 +96,13 @@
     <!-- modal de video -->
     <div class="modal fade " id="modalVideo" data-bs-backdrop="static" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content video-container">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="miModalLabel">VIDEO</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close" id="btnVideo" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-                <div class="modal-body">
-                    <video class="video-stream" autoplay src=""></video>
+                <div class="modal-body ">
+                    <video id="video" autoplay src="" style="width: 100%; height: 100%; object-fit: contain;"></video>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="snap" data-bs-dismiss="modal">Tomar foto</button>
