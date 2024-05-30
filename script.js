@@ -168,5 +168,4 @@ function Resultado(response) {
         $("#txtResultado").html("<p>No se pudo detectar la emoción</p>")
         $(".fondo").addClass("gifError")
     }
-    console.log(response)
 }

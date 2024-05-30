@@ -1,14 +1,11 @@
-from fastapi import FastAPI, File, UploadFile, Form, Depends, HTTPException
-from starlette.responses import StreamingResponse
+from fastapi import FastAPI, UploadFile, Form, Depends
 import tensorflow as tf
 import tensorflow_hub as hub
 from PIL import Image
 import cv2
-from flask import Flask, Response
 import numpy as np
 from fastapi.middleware.cors import CORSMiddleware
 from dataclasses import dataclass
-from fastapi.responses import StreamingResponse
 
 with tf.keras.utils.custom_object_scope({'KerasLayer': hub.KerasLayer}):
     model = tf.keras.models.load_model('modelo/modelo_entrenado.h5')
