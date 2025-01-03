@@ -11,57 +11,52 @@
 </head>
 
 <body class="fondo">
-    <nav class="navbar bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand">Detector de emociones</a>
-            <button class="btn btn-success" id="btnInfo" type="submit">INFO</button>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div><br></div>
-                    <div class="card">
-                        <div class="card-body">
-                            <figure class="figure imagen">
-                                <div class="imagen">
-                                    <img src="./assets/images/default.png" class="figure-img img-fluid rounded"
-                                        id="imagen" alt="Selecciona o arrastra tu imagen aqui">
-                                </div>
-                                <input data-bs-container="body" data-bs-placement="bottom" data-bs-content="Presiona aqui y selecciona un archivo" type="file" class="form-control info" id="file" name="file"
-                                        aria-describedby="emailHelp" accept=".png, .jpg, .jpeg">
-                            </figure>
-                        </div>
+    <header data-bs-theme="dark">
+        <nav class="navbar bg-dark border-bottom border-body sticky-top container-fluid">
+            <a class="navbar-brand ms-3">Detector de emociones</a>
+            <button class="btn btn-success me-3" id="btnInfo" type="submit">INFO</button>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="row">
+            <div class="col me-auto">
+                <section class="card mt-5">
+                    <div class="card-body">
+                        <figure class="figure">
+                            <img src="./assets/images/default.png" class="figure-img img-fluid rounded ms-5" id="imagen"
+                                alt="Selecciona o arrastra tu imagen aqui">
+                        </figure>
+                        <input data-bs-container="body" data-bs-placement="bottom" data-bs-content="Presiona aqui y selecciona un archivo"
+                            type="file" class="form-control info" id="file" name="file" aria-describedby="emailHelp" accept=".png, .jpg, .jpeg">
                     </div>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col col-sm-4">
-                    <div><br></div>
-                    <div class="card">
-                        <img src="./assets/images/neutral.png" class="card-img-top" id="resultado" alt="...">
-                        <div class="card-body">
-                            <p class="card-text" id="txtResultado">Neutral</p>
-                        </div>
+                </section>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col col-sm-4">
+                <figure class="card my-5">
+                    <img src="./assets/images/neutral.png" class="card-img-top" id="resultado" alt="...">
+                    <span class="text-center">Neutral</span>
+                </figure>
+                <div class="row justify-content-md-center">
+                    <div class="col col-lg-4">
+                        <button type="submit" data-bs-container="body" data-bs-placement="left"
+                            data-bs-content="Si quieres saber el sentimiento presiona este boton" class="btn btn-primary g-col-6"
+                            id="btnEnviar" disabled>Enviar</button>
                     </div>
-                    <div><br><br><br></div>
-                    <div class="container text-center">
-                        <div class="row justify-content-md-center">
-                            <div class="col col-lg-4">
-                                <button type="submit" data-bs-container="body" data-bs-placement="left" data-bs-content="Si quieres saber el sentimiento presiona este boton" class="btn btn-primary g-col-6" id="btnEnviar"disabled>Enviar</button>
-                            </div>
-                            <div class="col col-lg-3">
-                                <button type="submit" data-bs-container="body" data-bs-placement="bottom" data-bs-content="Tambien puedes tomarte una foto con este boton" class="btn btn-primary g-col-6" id="btnFoto">Foto</button>
-                            </div>
-                            <div class="col col-lg-4">
-                                <button id="btnEliminar" data-bs-container="body" data-bs-placement="right" data-bs-content="o si te equivocaste al elegir, puedes quitar la imagen" class="btn btn-danger g-col-6" disabled>Eliminar</button>
-                            </div>
-                        </div>
+                    <div class="col col-lg-3">
+                        <button type="submit" data-bs-container="body" data-bs-placement="bottom"
+                            data-bs-content="Tambien puedes tomarte una foto con este boton" class="btn btn-primary g-col-6"
+                            id="btnFoto">Foto</button>
+                    </div>
+                    <div class="col col-lg-4">
+                        <button id="btnEliminar" data-bs-container="body" data-bs-placement="right"
+                            data-bs-content="o si te equivocaste al elegir, puedes quitar la imagen" class="btn btn-danger g-col-6"
+                            disabled>Eliminar</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     <!-- modal de error -->
     <div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
         <div class="modal-dialog">

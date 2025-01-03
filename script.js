@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var foto
+    let foto
 
     $('#btnInfo').on('click', function () {
         $('#modalInfo').modal('show')
@@ -32,7 +32,7 @@ $(document).ready(function () {
     $('#file').on('change', function (e) {
         e.preventDefault()
         e.stopPropagation()
-        var file = this.files[0];
+        let file = this.files[0];
         cargarImagen(file)
     });
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
             $("#btnEnviar").popover('hide')
             $("#btnEliminar").popover('hide')
         }, 10);
-        var file = $("#file")[0].files[0]
+        let file = $("#file")[0].files[0]
         const formData = new FormData()
         if (file === undefined) {
             formData.append("filetest", foto)
@@ -84,8 +84,8 @@ $(document).ready(function () {
 })
 
 function cargarImagen(file) {
-    var type = file.type;
-    var reader = new FileReader();
+    let type = file.type;
+    let reader = new FileReader();
 
     reader.onloadend = function () {
         $("#imagen").attr("src", reader.result);
@@ -117,20 +117,20 @@ function cargarFile(formData) {
 }
 
 function tomarFoto() {
-    var canvas = $("<canvas>")[0];
+    let canvas = $("<canvas>")[0];
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    var context = canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    var dataURL = canvas.toDataURL('image/jpeg');
-    var blobBin = atob(dataURL.split(',')[1]);
-    var array = [];
-    for (var i = 0; i < blobBin.length; i++) {
+    let dataURL = canvas.toDataURL('image/jpeg');
+    let blobBin = atob(dataURL.split(',')[1]);
+    let array = [];
+    for (let i = 0; i < blobBin.length; i++) {
         array.push(blobBin.charCodeAt(i));
     }
-    var blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+    let blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
 
-    var file = new File([blob], "snapshot.jpg", { type: 'image/jpeg' });
+    let file = new File([blob], "snapshot.jpg", { type: 'image/jpeg' });
     return file
 }
 
